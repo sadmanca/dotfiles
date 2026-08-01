@@ -32,14 +32,34 @@ alias claude="claude --dangerously-skip-permissions"
 claude-ds() {
   export ANTHROPIC_BASE_URL="https://api.deepseek.com/anthropic"
   export ANTHROPIC_AUTH_TOKEN="${DEEPSEEK_API_KEY}"
-  export ANTHROPIC_MODEL="deepseek-chat"
-  export ANTHROPIC_DEFAULT_OPUS_MODEL="deepseek-chat"
-  export ANTHROPIC_DEFAULT_SONNET_MODEL="deepseek-chat"
-  export ANTHROPIC_DEFAULT_HAIKU_MODEL="deepseek-chat"
-  export CLAUDE_CODE_SUBAGENT_MODEL="deepseek-chat"
+  
+  # Set default models to the July 31, 2026 release of V4 Flash
+  # (V4-Flash-0731 has significantly upgraded agent capabilities)
+  export ANTHROPIC_MODEL="deepseek-v4-flash-0731"
+  export ANTHROPIC_DEFAULT_OPUS_MODEL="deepseek-v4-flash-0731"
+  export ANTHROPIC_DEFAULT_SONNET_MODEL="deepseek-v4-flash-0731"
+  export ANTHROPIC_DEFAULT_HAIKU_MODEL="deepseek-v4-flash-0731"
+  export CLAUDE_CODE_SUBAGENT_MODEL="deepseek-v4-flash-0731"
+  
   export CLAUDE_CODE_EFFORT_LEVEL="max"
   
   # Run Claude with skip permissions and any passed arguments
+  command claude --dangerously-skip-permissions "$@"
+}
+
+# Optional wrapper for Pro if you need heavier reasoning
+claude-ds-pro() {
+  export ANTHROPIC_BASE_URL="https://api.deepseek.com/anthropic"
+  export ANTHROPIC_AUTH_TOKEN="${DEEPSEEK_API_KEY}"
+  
+  export ANTHROPIC_MODEL="deepseek-v4-pro"
+  export ANTHROPIC_DEFAULT_OPUS_MODEL="deepseek-v4-pro"
+  export ANTHROPIC_DEFAULT_SONNET_MODEL="deepseek-v4-pro"
+  export ANTHROPIC_DEFAULT_HAIKU_MODEL="deepseek-v4-pro"
+  export CLAUDE_CODE_SUBAGENT_MODEL="deepseek-v4-pro"
+  
+  export CLAUDE_CODE_EFFORT_LEVEL="max"
+  
   command claude --dangerously-skip-permissions "$@"
 }
 EOF
